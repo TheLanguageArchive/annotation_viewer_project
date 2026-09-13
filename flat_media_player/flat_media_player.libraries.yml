@@ -1,0 +1,14 @@
+media-player:
+  version: 1.0.165
+  css:
+    theme:
+      css/media-player.css: {}
+  js:
+    js/media-player-v165.js: { preprocess: false, version: '1.0.165' }
+    js/media-player-drupal.js: {}
+    js/media-player-streaming-message.js: {}
+    js/media-player-idle-controls.js: {}
+    js/media-player-init.js: {}
+  dependencies:
+    - core/drupalSettings
+    - core/jquery

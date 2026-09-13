@@ -1,0 +1,7 @@
+flat_media_player.api:
+  path: '/api/flat-media-player/{node}'
+  defaults:
+    _controller: '\Drupal\flat_media_player\Controller\MediaApiController::getData'
+  requirements:
+    _entity_access: 'node.view'
+    node: \d+

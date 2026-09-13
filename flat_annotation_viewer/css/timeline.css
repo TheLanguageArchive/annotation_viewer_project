@@ -1,0 +1,130 @@
+#flat-annotation-viewer {
+  display: flex;
+  flex-direction: column;
+}
+
+#flat-annotation-viewer .viewer-controls {
+  order: 2;
+  /* Move below the media player */
+  padding: 10px;
+  background: #eee;
+  border: 1px solid #ccc;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+#flat-annotation-viewer annotation-viewer {
+  order: 1;
+  /* Keep player at top */
+}
+
+#flat-annotation-viewer .timeline-controls {
+  order: 3;
+  padding: 8px 10px;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  align-items: center;
+  font-size: 13px;
+}
+
+#flat-annotation-viewer .timeline-container {
+  order: 4;
+  width: 100%;
+  overflow-x: auto;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  position: relative;
+  font-family: sans-serif;
+}
+
+#flat-annotation-viewer .timeline-container.hidden {
+  display: none;
+}
+
+#flat-annotation-viewer annotation-viewer.hide-internal-table .table-viewer,
+#flat-annotation-viewer annotation-viewer.hide-internal-table app-table-viewer>div:not(:first-child),
+#flat-annotation-viewer annotation-viewer.hide-internal-table .table-viewer-container {
+  display: none !important;
+}
+
+/* Ensure the player remains visible */
+#flat-annotation-viewer annotation-viewer.hide-internal-table app-media-player,
+#flat-annotation-viewer annotation-viewer.hide-internal-table .media-player {
+  display: block !important;
+}
+
+#flat-annotation-viewer .timeline-header {
+  position: sticky;
+  top: 0;
+  background: #eee;
+  z-index: 10;
+  height: 30px;
+  border-bottom: 1px solid #ccc;
+}
+
+#flat-annotation-viewer .timeline-tier {
+  display: flex;
+  height: 40px;
+  border-bottom: 1px solid #eee;
+  position: relative;
+  white-space: nowrap;
+}
+
+#flat-annotation-viewer .tier-label {
+  position: sticky;
+  left: 0;
+  width: 150px;
+  background: #f0f0f0;
+  border-right: 1px solid #ccc;
+  padding: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 5;
+  flex-shrink: 0;
+}
+
+#flat-annotation-viewer .annotation-block {
+  position: absolute;
+  height: 30px;
+  top: 5px;
+  background: #007bff;
+  color: white;
+  border-radius: 3px;
+  font-size: 10px;
+  padding: 2px 0;
+  /* Remove horizontal padding */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+#flat-annotation-viewer .ann-text {
+  padding: 0 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 100%;
+}
+
+#flat-annotation-viewer .annotation-block:hover {
+  background: #0056b3;
+}
+
+#flat-annotation-viewer .playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: red;
+  z-index: 8;
+  pointer-events: none;
+}

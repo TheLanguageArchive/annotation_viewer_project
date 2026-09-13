@@ -1,0 +1,18 @@
+/* Media Player Container Styles */
+
+.block-flat-media-player-block,
+#block-tla-bootstrap-sass-flatmediaplayer,
+#flat-media-player {
+    display: block !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    table-layout: fixed;
+    /* Fallback if it must be a table */
+}
+
+/* Ensure the custom element works normally */
+flat-media-player {
+    display: block !important;
+    max-width: 100%;
+    overflow-x: hidden;
+}

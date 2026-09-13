@@ -1,0 +1,17 @@
+flat_media_visualization.data:
+  path: '/flat-visualization/{node}/{media}/{kind}'
+  defaults:
+    _controller: '\Drupal\flat_media_visualization\Controller\VisualizationController::data'
+    kind: 'status'
+  requirements:
+    _custom_access: '\Drupal\flat_media_visualization\Controller\VisualizationController::access'
+    node: '\d+'
+    media: '\d+'
+    kind: 'status|peaks|spectrogram'
+  options:
+    no_cache: TRUE
+    parameters:
+      node:
+        type: entity:node
+      media:
+        type: entity:media

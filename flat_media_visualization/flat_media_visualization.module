@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Implements hook_file_download().
+ *
+ * Derivatives must go through the controller's node/media/file access checks.
+ */
+function flat_media_visualization_file_download($uri) {
+  if (str_starts_with($uri, 'private://flat-visualizations/')) return -1;
+}

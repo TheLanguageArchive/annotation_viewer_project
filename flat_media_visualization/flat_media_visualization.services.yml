@@ -1,0 +1,3 @@
+services:
+  flat_media_visualization.generator:
+    class: Drupal\flat_media_visualization\Generator

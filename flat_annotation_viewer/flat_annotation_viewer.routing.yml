@@ -1,0 +1,8 @@
+flat_annotation_viewer.api:
+  path: '/node/{node}/av_api'
+  defaults:
+    _controller: '\Drupal\flat_annotation_viewer\Controller\AnnotationApiController::getData'
+  requirements:
+    _permission: 'access content'
+    _entity_access: 'node.view'
+    node: \d+

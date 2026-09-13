@@ -1,0 +1,26 @@
+node_modules/
+.DS_Store
+dist/
+.env
+__pycache__/
+
+# Local-only validation and sample data. Keep these files in the working tree,
+# but do not include them in the deployable source repository.
+**/tests/
+**/__tests__/
+*.test.js
+*.test.mjs
+*.spec.js
+*.spec.mjs
+sample_files/
+.agent/
+
+# Generated release packages and ad-hoc distribution archives.
+releases/
+*.zip
+
+# Keep only the JavaScript bundles referenced by the current Drupal libraries.
+flat_annotation_viewer/js/annotation-viewer-v*.js
+!flat_annotation_viewer/js/annotation-viewer-v193.js
+flat_media_player/js/media-player-v*.js
+!flat_media_player/js/media-player-v165.js

@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Contains flat_media_player.module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function flat_media_player_theme($existing, $type, $theme, $path) {
+  return [
+    'flat_media_player' => [
+      'variables' => [
+        'data' => NULL,
+      ],
+      'template' => 'flat-media-player',
+    ],
+  ];
+}

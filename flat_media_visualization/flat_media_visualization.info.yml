@@ -1,0 +1,9 @@
+name: 'FLAT Media Visualization'
+type: module
+description: 'On-demand cached waveform and spectrogram data for FLAT viewers.'
+core_version_requirement: ^10 || ^11
+package: FLAT
+dependencies:
+  - drupal:node
+  - drupal:media
+  - drupal:file
