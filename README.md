@@ -74,6 +74,11 @@ Run `npm run build` to produce a local `dist/` directory. Deploy a newly built
 bundle to the corresponding Drupal module only after updating the module's
 library definition to reference it.
 
+## Libraries
+
+Both Vue applications use [WaveSurfer.js](https://wavesurfer.xyz/) to display
+audio waveforms and spectrograms.
+
 ## AI assistance
 
 This project was developed with assistance from Claude Code, Google Gemini, and
