@@ -8,5 +8,4 @@ dependencies:
   - drupal:node
   - drupal:media
   - drupal:file
-  - flat_permissions:flat_permissions
   - flat_media_visualization:flat_media_visualization

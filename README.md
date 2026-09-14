@@ -2,7 +2,7 @@
 
 This repository contains deployable Drupal custom modules and their Vue source projects:
 
-- `flat_annotation_viewer/` — an annotation-viewer Drupal module for visualising media annotated with the [ELAN](https://archive.mpi.nl/tla/elan) annotation tool. This includes the Vue Javascript bundle used by Drupal.
+- `flat_annotation_viewer/` — an annotation-viewer Drupal module for visualising media annotated with the [ELAN](https://archive.mpi.nl/tla/elan) annotation tool. This includes the Vue Javascript bundle used by Drupal. Expands on the older [FLAT annotation viewer](https://github.com/TheLanguageArchive/flat_annotation_viewer) and its included EAF parser.
 - `flat_media_player/` — essentially the media player part of the above annotation viewer, for playing video and audio files in Drupal.
 - `flat_media_visualization/` — the server-side media-visualization module for generating waveform and spectrogram cache files.
 - `annotation_viewer_vue/` and `media_player_vue/` — Vue/Vite source projects used to build the browser components.
@@ -16,17 +16,6 @@ Before enabling them, install and configure:
 - Drupal 11 with Node, Media and File enabled, and PHP SimpleXML.
 - Islandora and its configured Fedora/Flysystem connection for the annotation
   viewer and for any media stored under `fedora://`.
-- [FLAT Permissions](https://github.com/TheLanguageArchive/flat_permissions)
-  for the annotation viewer, including the
-  `flat_permissions.fedora_reader` service and
-  `Drupal\flat_permissions\Service\FedoraReader::runAs()`. Install its
-  dependencies too. This repository does not bundle FLAT Permissions, its
-  dependencies or their site configuration.
-- A dedicated Fedora read account configured in
-  `flat_permissions.settings:fedora_read_user`, with permission to read the
-  repository sources. Drupal node/media/file permissions still determine who
-  may request the viewer data. Verify access as both anonymous and restricted
-  users before exposing protected collections.
 - Islandora media relationships (`field_media_of`), media-use taxonomy
   (`field_media_use`, using `Original File`/`Service File` labels), and file-based
   media source fields. The annotation viewer additionally expects an
@@ -36,11 +25,34 @@ Before enabling them, install and configure:
   server-generated waveforms and spectrograms, plus writable private storage
   outside the web root and a regularly scheduled queue worker.
 
-Check that the required reader API exists before enabling the annotation viewer:
+### Optional FLAT Permissions integration
+
+[FLAT Permissions](https://github.com/TheLanguageArchive/flat_permissions) is
+optional. When its `flat_permissions.fedora_reader` service is available, the
+annotation viewer and visualization worker use its `FedoraReader::runAs()` method
+to read source files. Configure a dedicated Fedora read account in
+`flat_permissions.settings:fedora_read_user`, with permission to read the
+repository sources. Install FLAT Permissions' dependencies too; this repository
+does not bundle them or their site configuration.
+
+Without that service, source files are read through the site's normal Drupal
+stream wrappers, using their configured storage credentials. Ensure the web
+process and Drush queue worker can read the sources. Removing this dependency
+does not remove the Islandora and field-configuration prerequisites above.
+
+Drupal node, media and file download access checks apply in both cases. Sites
+serving public collections must grant the appropriate anonymous access through
+Drupal; installing without FLAT Permissions does not automatically make content
+public. Verify access as both anonymous and restricted users before exposing
+protected collections.
+
+For sites using FLAT Permissions, check that its reader API is available:
 
 ```sh
 drush php:eval 'if (!Drupal::hasService("flat_permissions.fedora_reader")) { throw new RuntimeException("Install and enable FLAT Permissions with FedoraReader."); }'
 ```
+
+### Enable the viewer modules
 
 Follow [visualization setup](flat_media_visualization/README.md#install-and-deploy)
 for private storage, executable paths, resource limits and the queue command.

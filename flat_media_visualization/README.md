@@ -85,7 +85,9 @@ The endpoint checks the source node, media, file download access and the media's
 relationship to that node on every request, including ready artifacts. Normal
 Drupal private-file download routes are denied for this directory. Responses are
 private/no-store; server disk caching is shared without making the data public.
-Islandora sources use `flat_permissions.fedora_reader` when installed.
+Source staging uses `flat_permissions.fedora_reader` when available; otherwise
+it reads through the site's normal stream wrappers and storage credentials.
+The Drush queue worker must be able to read the source files in either case.
 
 Old derivative directories are retained. Administrators can remove unused cache
 folders when needed; missing results regenerate on demand. Avoid deleting a
@@ -108,5 +110,5 @@ installing on your site, verify:
   behave correctly in the browser.
 
 Check the [root deployment prerequisites](../README.md#drupal-deployment) before
-using Fedora sources. The annotation viewer requires FLAT Permissions and its
-trusted FedoraReader service.
+using Fedora sources. FLAT Permissions and its trusted FedoraReader service are
+optional for both viewers and the visualization worker.

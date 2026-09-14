@@ -21,11 +21,13 @@ use Drupal\flat_annotation_viewer\EAF\Resolver\MediaResolver;
 class AnnotationApiController extends ControllerBase {
 
   public function __construct(
-    protected readonly FedoraReader $fedoraReader,
+    protected readonly ?FedoraReader $fedoraReader = NULL,
   ) {}
 
   public static function create(ContainerInterface $container): static {
-    return new static($container->get('flat_permissions.fedora_reader'));
+    return new static($container->has('flat_permissions.fedora_reader')
+      ? $container->get('flat_permissions.fedora_reader')
+      : NULL);
   }
 
   /**
@@ -194,7 +196,7 @@ class AnnotationApiController extends ControllerBase {
   }
 
   /**
-   * Loads the EAF after Drupal access checks, using the trusted Fedora reader.
+   * Loads the EAF after Drupal access checks, optionally using the Fedora reader.
    *
    * @return array{status: string, content: string|null}
    */
@@ -230,7 +232,12 @@ class AnnotationApiController extends ControllerBase {
             if (!$uri) {
               continue;
             }
-            $content = $this->fedoraReader->runAs(static fn() => @file_get_contents($uri));
+            $read = static fn() => @file_get_contents($uri);
+            // Without FLAT Permissions, use the site's normal stream wrapper
+            // credentials. Never retry a failed trusted read with other access.
+            $content = $this->fedoraReader !== NULL
+              ? $this->fedoraReader->runAs($read)
+              : $read();
             if ($content === FALSE) {
               $this->getLogger('flat_annotation_viewer')->error('Unable to read EAF file @fid from @uri.', [
                 '@fid' => $file->id(),
